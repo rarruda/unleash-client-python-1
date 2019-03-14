@@ -20,9 +20,32 @@ def _create_strategies(provisioning: dict,
 
     return feature_strategies
 
+# def _create_variant_definitions(provisioning: dict) -> list:
+#     variant_definitions = []
+#     try:
+#         for variant_def in provisioning["variants"]:
+#             if "name" in variant_def.keys():
+#                 variant_definitions.append(VariantDefinition(variant_def))
+#             else:
+#     except Exception as excep:
+#         LOGGER.warning("Failed to load variant_definitions")
+
+#     return variant_definitions
 
 def _create_feature(provisioning: dict,
                     strategy_mapping: dict) -> Feature:
+    if "strategies" in provisioning.keys():
+        parsed_strategies = _create_strategies(provisioning, strategy_mapping)
+    else:
+        parsed_strategies = []
+
+    return Feature(name=provisioning["name"],
+                   enabled=provisioning["enabled"],
+                   strategies=parsed_strategies,
+                   variant_definitions=provisioning["variants"])
+
+
+def _create_variant(provisioning: dict) -> Variant:
     if "strategies" in provisioning.keys():
         parsed_strategies = _create_strategies(provisioning, strategy_mapping)
     else:

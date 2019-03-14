@@ -158,3 +158,17 @@ class UnleashClient():
             LOGGER.warning("Returning default value for feature: %s", feature_name)
             LOGGER.warning("Attempted to get feature_flag %s, but client wasn't initialized!", feature_name)
             return default_value
+
+
+    def get_variant(self,
+                   variant_name: str,
+                   context: dict = {},
+                   fallback_variant: dict = {}) -> dict:
+        """
+        Get a variant
+        """
+        LOGGER.debug("Variant: %s requested", variant_name)
+
+
+
+        return default_variant

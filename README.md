@@ -67,3 +67,11 @@ Supplying application context:
 app_context = {"userId": "test@email.com"}
 client.is_enabled("User ID Toggle", app_context)
 ```
+
+### Getting variations for a feature
+
+Getting variations:
+```
+fallback_variant = Variant("default", true, {"color": "blue"})
+variant = client.get_variant("ColorVariants", app_context, fallback_variant)
+```

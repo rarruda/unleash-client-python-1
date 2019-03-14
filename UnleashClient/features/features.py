@@ -6,7 +6,8 @@ class Feature:
     def __init__(self,
                  name: str,
                  enabled: bool,
-                 strategies: list) -> None:
+                 strategies: list
+                 variant_definitions: list) -> None:
         """
         An representation of a fewature object
 
@@ -18,6 +19,7 @@ class Feature:
         self.name = name
         self.enabled = enabled
         self.strategies = strategies
+        self.variant_definitions = variant_definitions
 
         # Stats tracking
         self.yes_count = 0
@@ -68,3 +70,24 @@ class Feature:
         LOGGER.info("Feature toggle status for feature %s: %s", self.name, flag_value)
 
         return flag_value
+
+    def get_variant(self,
+                    context: dict = None,
+                    fallback_variant: Variant = None) -> Variant:
+        """
+        """
+              # fallback_variant = disabled_variant if fallback_variant.nil?
+        if not is_enabled(context):
+            return disabled_variant
+
+        variant = get_variant_from_override_match(context)
+        variant = get_variant_from_weights(context) if variant.nil?
+
+        return None
+
+    def get_variant_from_override_match(self,
+                                        context: dict = None) -> Variant:
+        """
+            If an override matches, return the variant.
+        """
+        return None
